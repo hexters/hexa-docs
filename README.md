@@ -4,6 +4,8 @@ Hexa is a role & permission plugin created for Filament, adopted from the concep
 
 Permissions will be set up for each component such as Page, Resource, or widget in Filament.
 
+![](https://github.com/hexters/assets/blob/main/hexa/v1/edit.png?raw=true)
+
 ## About Filament
 [FilamentPHP](https://filamentphp.com/) is a lightweight and flexible PHP framework designed for building web applications. It aims to simplify application development by providing a clear structure and high modularity. The framework emphasizes speed, efficiency, and comes with many built-in features that facilitate effective web application development.
 
@@ -157,3 +159,13 @@ class StatsOverview extends BaseWidget
 ```
 
 Access will automatically appear when editing and creating roles, making this approach simple and easy to implement.
+
+## Preview
+
+List of Admin Account
+
+![](https://github.com/hexters/assets/blob/main/hexa/v1/list-admin.png?raw=true)
+
+List of Role Access
+
+![](https://github.com/hexters/assets/blob/main/hexa/v1/list-role.png?raw=true)
