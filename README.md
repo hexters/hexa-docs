@@ -12,12 +12,10 @@ Before installing this package, you need to add the following package repository
 {
     "repositories": {
         "filament-hexa": {
-            {
-                "type": "composer",
-                "url": "https://filament-hexa.composer.sh"
-            }
+            "type": "composer",
+            "url": "https://filament-hexa.composer.sh"
         }
-    },
+    }
 }
 ```
 
