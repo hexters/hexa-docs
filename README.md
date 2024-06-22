@@ -1,4 +1,4 @@
-# Hexa
+# Filament Hexa
 
 Hexa is a role & permission plugin developed for Filament, adapted from the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept simplifies the management of each role and permission through inline code.
 
