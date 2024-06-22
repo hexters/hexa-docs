@@ -35,6 +35,11 @@ After that, perform the installation:
 php artisan hexa:install
 ```
 
+Install database migrations
+```
+php artisan migrate
+```
+
 Create an admin login account:
 ```
 php artisan hexa:account
