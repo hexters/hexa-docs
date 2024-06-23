@@ -194,7 +194,7 @@ In a Blade template, you can use it as shown below.
 ```
 
 ## License
-This plugin is not open source. You need a license to use this plugin, which you can purchase or request from the plugin owner.
+This plugin is not open source. You need a license to use this plugin, which you can purchase or request from the owner of this plugin. See the license details at [Filament Hexa License](https://github.com/hexters/hexa-docs/blob/main/LICENSE.md).
 
 ## Issues
 
