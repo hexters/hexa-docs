@@ -92,7 +92,7 @@ class UserResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()?->can(static::$permissionId) ?? false;
+        return hexaCan(static::$permissionId);
     }
 
     . . .
@@ -119,7 +119,7 @@ class Dashboard extends Page
 
     public static function canAccess(): bool
     {
-        return auth()->user()?->can(static::$permissionId) ?? false;
+        return hexaCan(static::$permissionId);
     }
 
     . . .
@@ -146,7 +146,7 @@ class StatsOverview extends BaseWidget
 
     public static function canView(): bool
     {
-        return auth()->user()?->can(static::$permissionId) ?? false;
+        return hexaCan(static::$permissionId);
     }
 
     . . .
@@ -161,7 +161,7 @@ You can use the `visible()` method on various `Class Components`. For example, t
 
 ```php
 Tables\Actions\EditAction::make()
-    ->visible(auth()->user()?->can('access.user.edit')),
+    ->visible(hexaCan('access.user.edit')),
 ```
 
 For classes extending `Filament\Resources\Pages\EditRecord`, `Filament\Resources\Pages\CreateRecord`, or `Filament\Resources\Pages\ListRecords`, you can use:
@@ -171,7 +171,7 @@ For classes extending `Filament\Resources\Pages\EditRecord`, `Filament\Resources
  */
 public static function canAccess(array $parameters = []): bool
 {
-    return auth()->user()?->can('access.user.edit') ?? false;
+    return hexaCan('access.user.edit');
 }
 ```
 
@@ -179,8 +179,23 @@ public static function canAccess(array $parameters = []): bool
 
 Access can be granted to Resources, Pages, Widgets, Button Actions, etc., as shown below.
 
+Using Hexa utility function:
+```php
+hexaCan('hexa.admin')
+```
+
+Using Laravel auth can function:
 ```php
 auth()->user()?->can('hexa.admin')
+```
+
+Using Laravel Gate class:
+```php
+use Illuminate\Support\Facades\Gate;
+
+. . .
+
+Gate::allows('hexa.admin')
 ```
 
 In a Blade template, you can use it as shown below.
@@ -196,7 +211,7 @@ In a Blade template, you can use it as shown below.
 ## License
 This plugin is not open source. You need a license to use this plugin, which you can purchase or request from the owner of this plugin. See the license details at [Filament Hexa License](https://github.com/hexters/hexa-docs/blob/main/LICENSE.md).
 
-## Issues
+## Issue
 
 If you encounter any issues with this plugin, you can submit them on the repository: 
 [Filament Hexa Issue](https://github.com/hexters/hexa-docs/issues)
