@@ -92,7 +92,7 @@ class UserResource extends Resource
 
     public static function canAccess(): bool
     {
-        return hexaCan(static::$permissionId);
+        return hexa()->can(static::$permissionId);
     }
 
     . . .
@@ -119,7 +119,7 @@ class Dashboard extends Page
 
     public static function canAccess(): bool
     {
-        return hexaCan(static::$permissionId);
+        return hexa()->can(static::$permissionId);
     }
 
     . . .
@@ -146,7 +146,7 @@ class StatsOverview extends BaseWidget
 
     public static function canView(): bool
     {
-        return hexaCan(static::$permissionId);
+        return hexa()->can(static::$permissionId);
     }
 
     . . .
@@ -161,7 +161,7 @@ You can use the `visible()` method on various `Class Components`. For example, t
 
 ```php
 Tables\Actions\EditAction::make()
-    ->visible(hexaCan('access.user.edit')),
+    ->visible(hexa()->can('access.user.edit')),
 ```
 
 For classes extending `Filament\Resources\Pages\EditRecord`, `Filament\Resources\Pages\CreateRecord`, or `Filament\Resources\Pages\ListRecords`, you can use:
@@ -171,7 +171,7 @@ For classes extending `Filament\Resources\Pages\EditRecord`, `Filament\Resources
  */
 public static function canAccess(array $parameters = []): bool
 {
-    return hexaCan('access.user.edit');
+    return hexa()->can('access.user.edit');
 }
 ```
 
@@ -181,7 +181,7 @@ Access can be granted to Resources, Pages, Widgets, Button Actions, etc., as sho
 
 Using Hexa utility function:
 ```php
-hexaCan('hexa.admin')
+hexa()->can('hexa.admin')
 ```
 
 Using Laravel auth can function:
