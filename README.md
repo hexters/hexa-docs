@@ -214,17 +214,16 @@ This plugin comes with an easy-to-use cache system for storing various applicati
 ```php
 use Filament\Forms\Components\TextInput;
 
-public function form(Form $form): Form
+public function formOptions(Form $form): Form
 {
     return $form
         ->schema([
-            TextInput::make('referral-commission')
-                ->default(hexa()->getOption('referral-commission', 10))
+            TextInput::make('referral-commision')
+                ->default(hexa()->getOption('referral-commision', 10)) #<-- required fot set the value
                 ->required()
                 ->suffix('%')
                 ->numeric(),
-        ])
-        ->statePath('data');
+        ]);
 }
 ```
 
