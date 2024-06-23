@@ -35,9 +35,13 @@ In no event shall the licensor be liable for any damages whatsoever arising out 
 
 This license shall be governed by and construed in accordance with the laws of the jurisdiction in which the licensor is located, without regard to its conflict of law principles.
 
+## License Purchase
+
+You can purchase or request a license from the owner of this software.
+
 ## Contact
 
-For any questions or clarifications, please contact:
+For any questions, clarifications, or license requests, please contact:
 
-Asep
+Asep  
 hexters@gmail.com
