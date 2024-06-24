@@ -88,8 +88,6 @@ class UserResource extends Resource
 
     protected static ?string $permissionId = 'access.user';
 
-    protected static ?string $titlePermission = 'User';
-
     protected static ?string $descriptionPermission = 'Admin can manage User accounts';
 
     /**
@@ -124,8 +122,6 @@ class Dashboard extends Page
 
     protected static ?string $permissionId = 'access.dashboard';
 
-    protected static ?string $titlePermission = 'Dashboard';
-
     protected static ?string $descriptionPermission = 'Admin can access the dashboard page';
 
     public static function canAccess(): bool
@@ -150,8 +146,6 @@ class StatsOverview extends BaseWidget
     use HexAccess;
 
     protected static ?string $permissionId = 'widget.overview';
-
-    protected static ?string $titlePermission = 'Report Overview';
 
     protected static ?string $descriptionPermission = 'Admin can view report overview';
 
