@@ -17,8 +17,8 @@ Before you can install the Filament Hexa package, you need to install the Filame
 To install Filament Hexa, you must add the repository package to the `composer.json` file in the root of your project. Copy the command below and run it:
 
 ```bash
-composer config repositories.filamenthexa.ppmarket.org \
-    '{"type": "composer", "url": "https://filamenthexa.ppmarket.org"}' \
+composer config repositories.filament-hexa \
+    '{"type": "composer", "url": "https://filament-hexa.composer.sh"}' \
         --file composer.json
 ```
 
@@ -28,7 +28,7 @@ Once the repository is added to your composer.json file, you can install Filamen
 composer require hexters/hexa
 ```
 
-Next, you will be prompted to provide your username and password, which you can obtain here [Filament Hexa License](https://ppmarket.org/browse/hexters-hexa)
+Next, you will be prompted to provide your username and password, which you can obtain here [Filament Hexa License](https://checkout.anystack.sh/filament-hexa?via=arf178)
 
 ```bash
 Loading composer repositories with package information
@@ -239,7 +239,7 @@ hexa()->setOption('key-option', 'The option value can be a string, array, number
 ```
 
 ## License
-This plugin is not open-source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://ppmarket.org/browse/hexters-hexa) or request it from the owner of this plugin.
+This plugin is not open-source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://checkout.anystack.sh/filament-hexa?via=arf178) or request it from the owner of this plugin.
 
 ## Issue
 
