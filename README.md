@@ -2,6 +2,8 @@
 
 Filament Hexa is an effortless role & permission plugin for Filament, inspired by the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept facilitates managing each role and permission inline with code and provides an easy-to-understand interface.
 
+This plugin is intended exclusively for Administrators, as it features a separate admin table distinct from the user table provided by Laravel. Additionally, this plugin will replace the `auth.php` configuration file.
+
 ![](https://github.com/hexters/assets/blob/main/hexa/v1/edit.png?raw=true)
 
 ## About Filament
