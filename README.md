@@ -1,18 +1,21 @@
 # Filament Hexa
 
-Filament Hexa is an effortless role & permission plugin for Filament, inspired by the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept facilitates managing each role and permission inline with code and provides an easy-to-understand interface.
+Filament Hexa is an effortless role & permission plugin created for Filament, inspired by the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept provides ease in managing each role and permission inline with code and offers an easy-to-understand interface.
 
-This plugin is intended exclusively for Administrators, as it features a separate admin table distinct from the user table provided by Laravel. Additionally, this plugin will replace the `auth.php` configuration file.
+This plugin is intended only for Administrators, as it has a separate admin table from the user table provided by Laravel. Additionally, this plugin will replace the `auth.php` configuration file.
 
 ![](https://github.com/hexters/assets/blob/main/hexa/v1/edit.png?raw=true)
 
 ## About Filament
 [FilamentPHP](https://filamentphp.com/) is a lightweight and flexible PHP framework designed for building web applications. It aims to simplify application development by providing a clear structure and high modularity. The framework emphasizes speed, efficiency, and comes with many built-in features that facilitate effective web application development.
 
+## Demo
+If you want to try it, you can install the lite version available at [Filament Hexa Lite](https://github.com/hexters/hexa-lite).
+
 ## Installation
 
 > **Note** <br>
-Before you can install the Filament Hexa package, you need to install the Filament package first. You can find more information on the official [FilamentPHP](https://filamentphp.com) website.
+You need to install the filament package first. You can refer to the official site at [FilamentPHP](https://filamentphp.com).
 
 To install Filament Hexa, you must add the repository package to the `composer.json` file in the root of your project. Copy the command below and run it:
 
@@ -28,7 +31,7 @@ Once the repository is added to your composer.json file, you can install Filamen
 composer require hexters/hexa
 ```
 
-After that, install the Hexa plugin:
+Then, proceed with the installation of the hexa plugin:
 ```bash
 php artisan hexa:install
 ```
@@ -42,12 +45,12 @@ Create a superadmin account for admin login:
 ```bash
 php artisan hexa:account --create
 ```
-## Setup Plugin
 
-Add the Filament `Hexa` plugin to the panel you have created. If you haven't created a panel yet, see the instructions here [Creating a new panel](https://filamentphp.com/docs/3.x/panels/configuration#creating-a-new-panel)
+## Plugin Setup
+
+Add the Filament `Hexa` plugin to the created panel. If you haven't created one yet, see how to do it here [Creating a new panel](https://filamentphp.com/docs/3.x/panels/configuration#creating-a-new-panel).
 
 ```php
-
 use Filament\Panel;
 use Hexters\Hexa\Hexa;
  
@@ -58,17 +61,15 @@ public function panel(Panel $panel): Panel
             Hexa::make(),
         ]);
 }
-
 ```
 
-## Declaring Access Permissions 
+## Declaring Access Permissions
 
 ### Resource, Page, & Cluster
 
 To declare access permissions for Resources, Pages, and Clusters, see the example below:
 
 ```php
-
 use Filament\Resources\Resource;
 use Hexters\Hexa\Traits\HexAccess;
 
@@ -81,7 +82,7 @@ protected static ?string $permissionId = 'access.user';
 protected static ?string $descriptionPermission = 'Admin can manage User accounts';
 
 /**
- * Optional Section
+ * Additional permission (optional)
  * You can add it or not depending on the needs of your application.
  */
 protected static ?array $subPermissions = [
@@ -96,16 +97,13 @@ public static function canAccess(): bool
 }
 
 . . .
-
-
 ```
 
 ### Widget
 
-To declare access permissions for a Widget, there is a difference in the method. Widgets use the `canView()` method:
+To declare access permissions for Widgets, there is a difference in the access method as it uses the `canView()` method.
 
 ```php
-
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Hexters\Hexa\Traits\HexAccess;
 
@@ -124,13 +122,12 @@ class StatsOverview extends BaseWidget
 
     . . .
 }
-
 ```
 
-The sidebar menu for resources and pages will appear for roles that have access to them.
+This way, the sidebar menu for resources and pages will appear for roles that have access to them.
 
 ## Additional Access
-Besides the methods above, you can add additional permissions for other needs outside of Pages, Resources, Widgets, and Clusters. You can add them in the `/config/other-permissions.php` file:
+Apart from the methods above, you can add additional permissions for other needs outside of Page, Resource, Widget, and Cluster. You can add them in the file `/config/other-permissions.php`:
 
 ```php
 use Hexters\Hexa\Helpers\Can;
@@ -142,17 +139,16 @@ return [
 ];
 ```
 
-### Actions and Others
+### Actions, etc.
 
-You can use the `visible()` method on several `Class Components`. For example, to use it on a button:
+You can use the `visible()` method on several `Class Components`. For example, let's try it on a button.
 
 ```php
 Tables\Actions\EditAction::make()
     ->visible(hexa()->can('access.user.edit')),
 ```
 
-To grant access on a class that extends `Filament\Resources\Pages\EditRecord`, `Filament\Resources\Pages\CreateRecord`, `Filament\Resources\Pages\ListRecords`, you can use:
-
+For giving access to classes extended to `Filament\Resources\Pages\EditRecord`, `Filament\Resources\Pages\CreateRecord`, `Filament\Resources\Pages\ListRecords`, you can use:
 ```php
 /**
  * @param  array<string, mixed>  $parameters
@@ -165,28 +161,28 @@ public static function canAccess(array $parameters = []): bool
 
 ## Checking Access Permissions
 
-Access can be granted to Resources, Pages, Widgets, Button Actions, etc. Access can be granted using the methods shown below.
+Access can be granted to Resources, Pages, Widgets, Button Actions, etc. The access can be given as shown below.
 
-Using the Hexa utility function:
+Using the hexa utility function:
 ```php
 hexa()->can('hexa.admin')
 ```
 
-Using the Laravel auth can function:
+Using Laravel's auth can function:
 ```php
 auth()->user()?->can('hexa.admin')
 ```
 
-Using the Laravel Gate class:
+Using Laravel's Gate class:
 ```php
-use use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
 
 . . .
 
 Gate::allows('hexa.admin')
 ```
 
-In a Blade template, you can use it as shown below:
+In a blade template, you can use it as shown below.
 
 ```html
 <div>
@@ -198,7 +194,7 @@ In a Blade template, you can use it as shown below:
 
 ## Options Setting
 
-This plugin comes with an easy-to-use cache system that stores various settings needed by the application. See the file `app/Filament/Pages/Option.php`. You can use Form components to create various types of form inputs.
+This plugin comes with an easy-to-use cache system that stores various settings required by the application. Check the file `app/Filament/Pages/Option.php`. You can use the Form component to create various types of form inputs.
 
 ```php
 use Filament\Forms\Components\TextInput;
@@ -222,19 +218,20 @@ To call it, you can use the utility function provided by Hexa:
 hexa()->getOption('referral-commision', 10)
 ```
 
-To save it manually, you can use the utility function below:
+If you want to save it manually, you can use the utility function below:
 
 ```php
 hexa()->setOption('key-option', 'The option value can be a string, array, number, etc.')
 ```
 
 ## License
-This plugin is not open-source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://ppmarket.org/browse/hexters-hexa) or request it from the owner of this plugin.
+This plugin is not open source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://ppmarket.org/browse/hexters-hexa) or request it from the owner of this plugin.
 
 ## Issue
 
-If you encounter an issue with this plugin, you can submit an issue on this repository: [Filament Hexa Issue](https://github.com/hexters/hexa-docs/issues)
+If you encounter any issues with this plugin, you can submit them to the repository:
+[Filament Hexa Issue](https://github.com/hexters/hexa-docs/issues)
 
-Thank you for using this plugin. We hope it accelerates your process of building powerful applications.
+Thank you for using this plugin. We hope it speeds up your process in creating powerful applications.
 
 Happy Coding 🧑‍💻 🧑‍💻 🧑‍💻
