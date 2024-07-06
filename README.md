@@ -1,6 +1,6 @@
 # Filament Hexa
 
-Filament Hexa is an effortless role & permission plugin created for Filament, inspired by the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept provides ease in managing each role and permission inline with code and offers an easy-to-understand interface.
+**Filament Hexa** is an **effortless role & permission plugin created for Filament**, inspired by the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept provides ease in managing each role and permission inline with code and offers an easy-to-understand interface.
 
 This plugin is intended only for Administrators, as it has a separate admin table from the user table provided by Laravel. Additionally, this plugin will replace the `auth.php` configuration file.
 
@@ -222,6 +222,12 @@ If you want to save it manually, you can use the utility function below:
 
 ```php
 hexa()->setOption('key-option', 'The option value can be a string, array, number, etc.')
+```
+
+You can also retrieve the update date from this option by
+
+```php
+hexa()->getOptionDate('key-option') // output : 2030-04-12 10:10:10
 ```
 
 ## License
