@@ -13,7 +13,7 @@ Added helper of retrieving update date option
 For example, I want to retrieve the date of the last update of a term & condition that was previously set.
 
 ```php
-hexa()->getOptionDate('term-condition-page-content') // output : 04-06-2030 10:10:10
+hexa()->getOptionDate('term-condition-page-content') // output : 2030-04-06 10:10:10
 ```
 
 This helper returns a null value if the data is not found.
