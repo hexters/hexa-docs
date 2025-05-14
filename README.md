@@ -31,14 +31,6 @@
 
 ## Installation
 
-To install Filament Hexa, add the package repository to your `composer.json` file and run:
-
-```bash
-composer config repositories.filament-hexa.hexters.com \
-    '{"type": "composer", "url": "https://filament-hexa.hexters.com"}' \
-    --file composer.json
-```
-
 Then install the package:
 
 ```bash
