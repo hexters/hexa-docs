@@ -1,59 +1,62 @@
-# Filament Hexa
+# Filament Hexa V2 (Coming Soon)
 
-**Filament Hexa** is an **effortless role & permission plugin created for Filament**, inspired by the concept of [hexters/ladmin](https://github.com/hexters/ladmin). This concept provides ease in managing each role and permission inline with code and offers an easy-to-understand interface.
+**Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament. Now in version 2, it supports multi-panel setups, is easier to use, and customizable.
 
-This plugin is intended only for Administrators, as it has a separate admin table from the user table provided by Laravel. Additionally, this plugin will replace the `auth.php` configuration file.
+## Versions
+|Version|Doc.|
+|-|-|
+|V1|[Read Doc.](https://github.com/hexters/hexa-docs/blob/main/README.v1.md)|
+|V2|[Read Doc.](https://github.com/hexters/hexa-docs)|
 
-![](https://github.com/hexters/assets/blob/main/hexa/v1/edit.png?raw=true)
+## Index
 
-## About Filament
-[FilamentPHP](https://filamentphp.com/) is a lightweight and flexible PHP framework designed for building web applications. It aims to simplify application development by providing a clear structure and high modularity. The framework emphasizes speed, efficiency, and comes with many built-in features that facilitate effective web application development.
-
-## Demo
-If you want to try it, you can install the lite version available at [Filament Hexa Lite](https://github.com/hexters/hexa-lite).
+* [Installation](#installation)
+* [Adding Role Select](#adding-role-select)
+* [Multi Panel](#multi-panel)
+* [Defining Permissions](#defining-permissions)
+* [Granting Access](#granting-access)
+  * [Check for User](#check-for-user)
+  * [Visible Access](#visible-access)
+  * [Laravel Access](#laravel-access)
+* [Additional Methods (optional)](#additional-methods-optional)
+  * [Adding Descriptions to Roles and Gates](#adding-descriptions-to-roles-and-gates)
+  * [Setting Role Display Order](#setting-role-display-order)
+* [Custom Access](#custom-access)
+* [Multi Tenancy](#multi-tenancy)
+* [Vendor Publish](#vendor-publish)
+* [Meta Options](#meta-options)
+* [Traits Class](#traits-class)
+* [License](#license)
+* [Bug Reports or Issues](#bug-reports-or-issues)
 
 ## Installation
 
-> **Note** <br>
-You need to install the filament package first. You can refer to the official site at [FilamentPHP](https://filamentphp.com).
-
-To install Filament Hexa, you must add the repository package to the `composer.json` file in the root of your project. Copy the command below and run it:
+To install Filament Hexa, add the package repository to your `composer.json` file and run:
 
 ```bash
-composer config repositories.filamenthexa.ppmarket.org \
-    '{"type": "composer", "url": "https://filamenthexa.ppmarket.org"}' \
-        --file composer.json
+composer config repositories.filament-hexa.hexters.com \
+    '{"type": "composer", "url": "https://filament-hexa.hexters.com"}' \
+    --file composer.json
 ```
 
-Once the repository is added to your composer.json file, you can install Filament Hexa like any other composer package by using the composer require command:
+Then install the package:
 
 ```bash
 composer require hexters/hexa
 ```
 
-Then, proceed with the installation of the hexa plugin:
-```bash
-php artisan hexa:install
-```
+Then run the migration for roles:
 
-Install database migrations:
 ```bash
 php artisan migrate
 ```
 
-Create a superadmin account for admin login:
-```bash
-php artisan hexa:account --create
-```
-
-## Plugin Setup
-
-Add the Filament `Hexa` plugin to the created panel. If you haven't created one yet, see how to do it here [Creating a new panel](https://filamentphp.com/docs/3.x/panels/configuration#creating-a-new-panel).
+After installation, register the plugin in your panel:
 
 ```php
 use Filament\Panel;
 use Hexters\Hexa\Hexa;
- 
+
 public function panel(Panel $panel): Panel
 {
     return $panel
@@ -63,181 +66,207 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-## Declaring Access Permissions
-
-### Resource, Page, & Cluster
-
-To declare access permissions for Resources, Pages, and Clusters, see the example below:
+Then register the access trait in the `User` model:
 
 ```php
-use Filament\Resources\Resource;
-use Hexters\Hexa\Traits\HexAccess;
+use Hexters\Hexa\HexaRolePermission;
 
-. . .
+class User extends Authenticatable
+{
+    use HasFactory, Notifiable;
+    use HexaRolePermission; // Add this trait
+}
+```
 
-use HexAccess;
+## Adding Role Select
 
-protected static ?string $permissionId = 'access.user';
+To assign a role to a user, add a select input in your `UserResource` form:
 
-protected static ?string $descriptionPermission = 'Admin can manage User accounts';
+```php
+Forms\Components\Select::make('roles')
+    ->label(__('Role Name'))
+    ->relationship('roles', 'name')
+    ->placeholder(__('Superuser')),
+```
 
-/**
- * Additional permission (optional)
- * You can add it or not depending on the needs of your application.
- */
-protected static ?array $subPermissions = [
-    'access.user.create' => 'Can Create',
-    'access.user.edit' => 'Can Edit',
-    'access.user.delete' => 'Can Delete',
-];
+## Multi Panel
 
+Filament Hexa supports multiple panels as long as each panel uses a different `Auth Guard`. The default guard is `web`.
+
+```php
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->authGuard('reseller');
+}
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->authGuard('customer');
+}
+```
+
+Configure guards in `config/auth.php`.
+
+## Defining Permissions
+
+Permissions can be declared in Pages, Resources, Widgets, and Clusters. Example:
+
+```php
+public function defineGates(): array
+{
+    return [
+        'user.index' => __('Allows to view list of users'),
+        'user.create' => __('Allows to create new user'),
+        'user.update' => __('Allows to update user'),
+        'user.delete' => __('Allows to delete user'),
+    ];
+}
+```
+
+## Granting Access
+
+If a user has no assigned role, they are treated as a `Superuser`, meaning they can access all defined permissions.
+
+```php
 public static function canAccess(): bool
 {
-    return hexa()->can(static::$permissionId);
+    return hexa()->can('user.index');
 }
-
-. . .
 ```
 
-### Widget
+### Check for User
 
-To declare access permissions for Widgets, there is a difference in the access method as it uses the `canView()` method.
+When checking access outside an authenticated context (e.g., in queues or commands), use:
 
 ```php
-use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Hexters\Hexa\Traits\HexAccess;
+return hexa()->user(User::first())->can('user.index');
+```
 
-class StatsOverview extends BaseWidget
+### Visible Access
+
+Filament supports `visible` on components like `Action`, `Column`, `Input`, etc.:
+
+```php
+Actions\CreateAction::make('create')
+    ->visible(fn() => hexa()->can(['user.index', 'user.create']));
+```
+
+### Laravel Access
+
+Laravel's native authorization features:
+
+```php
+Auth::user()->can('user.create');
+Gate::allows('user.create');
+
+// Only works in authenticated context (e.g., requests)
+Gate::forUser(User::first())->allows('user.create');
+
+@can('user.create')
+    ...
+@endcan
+```
+
+> ✅ For non-authenticated contexts:
+>
+> ```php
+> hexa()->user(User::first())->can('user.create');
+> ```
+
+## Additional Methods (optional)
+
+### Adding Descriptions to Roles and Gates
+
+```php
+public function roleDescription(): ?string
 {
-    use HexAccess;
-
-    protected static ?string $permissionId = 'widget.overview';
-
-    protected static ?string $descriptionPermission = 'Admin can view report overview';
-
-    public static function canView(): bool
-    {
-        return hexa()->can(static::$permissionId);
-    }
-
-    . . .
+    return __('Controls access to create, read, update, delete, and more.');
 }
-```
 
-This way, the sidebar menu for resources and pages will appear for roles that have access to them.
-
-## Additional Access
-Apart from the methods above, you can add additional permissions for other needs outside of Page, Resource, Widget, and Cluster. You can add them in the file `/config/other-permissions.php`:
-
-```php
-use Hexters\Hexa\Helpers\Can;
-
-return [
-    Can::make(id: 'receive.email.order')
-        ->name(name: 'Allow receiving email orders')
-        ->description(description: 'Admins with this role will receive emails from incoming customer orders.'),
-];
-```
-
-### Actions, etc.
-
-You can use the `visible()` method on several `Class Components`. For example, let's try it on a button.
-
-```php
-Tables\Actions\EditAction::make()
-    ->visible(hexa()->can('access.user.edit')),
-```
-
-For giving access to classes extended to `Filament\Resources\Pages\EditRecord`, `Filament\Resources\Pages\CreateRecord`, `Filament\Resources\Pages\ListRecords`, you can use:
-```php
-/**
- * @param  array<string, mixed>  $parameters
- */
-public static function canAccess(array $parameters = []): bool
+public function defineGateDescriptions(): array
 {
-    return hexa()->can('access.user.edit');
+    return [
+        'user.index' => __('Admins can access the User page'),
+        'user.create' => __('Admins can create new Users'),
+    ];
 }
 ```
 
-## Checking Access Permissions
-
-Access can be granted to Resources, Pages, Widgets, Button Actions, etc. The access can be given as shown below.
-
-Using the hexa utility function:
-```php
-hexa()->can('hexa.admin')
-```
-
-Using Laravel's auth can function:
-```php
-auth()->user()?->can('hexa.admin')
-```
-
-Using Laravel's Gate class:
-```php
-use Illuminate\Support\Facades\Gate;
-
-. . .
-
-Gate::allows('hexa.admin')
-```
-
-In a blade template, you can use it as shown below.
-
-```html
-<div>
-    @can('hexa.admin')
-        // Content here ...
-    @endcan
-</div>
-```
-
-## Options Setting
-
-This plugin comes with an easy-to-use cache system that stores various settings required by the application. Check the file `app/Filament/Pages/Option.php`. You can use the Form component to create various types of form inputs.
+### Setting Role Display Order
 
 ```php
-use Filament\Forms\Components\TextInput;
-
-public function formOptions(Form $form): Form
-{
-    return $form
-        ->schema([
-            TextInput::make('referral-commision')
-                ->default(hexa()->getOption('referral-commision', 10)) #<-- required to set the value
-                ->required()
-                ->suffix('%')
-                ->numeric(),
-        ]);
-}
+public $hexaSort = 4;
 ```
 
-To call it, you can use the utility function provided by Hexa:
+## Custom Access
+
+You can define additional gates using `GateItem`:
 
 ```php
-hexa()->getOption('referral-commision', 10)
+Hexa::make()
+    ->gateItems([
+        GateItem::make(__('Horizon'))
+            ->description(__('Allows user to manage horizon page'))
+            ->gateItems([
+                'horizon.page' => __('Horizon Page')
+            ])
+            ->gateItemDescriptions([
+                'other.index' => __('Allow user to access horizon page')
+            ]),
+    ]);
 ```
 
-If you want to save it manually, you can use the utility function below:
+To customize the menu:
 
 ```php
-hexa()->setOption('key-option', 'The option value can be a string, array, number, etc.')
+Hexa::make()
+    ->shouldRegisterNavigation(true)
+    ->navigationName(__('Role & Access'))
+    ->navigationGroup('Settings')
+    ->navigationIcon('heroicon-o-lock-open')
+    ->gateItems([...]);
 ```
 
-You can also retrieve the update date from this option by
+## Multi Tenancy
+
+Filament Hexa supports multi-tenancy. The `HexaRole` model includes a `team_id` field and `team` relationship. You can integrate it with Filament's multi-tenancy setup.
+
+## Vendor Publish
+
+To override the role model (e.g., for customizing tenant relationships), publish the config:
+
+```bash
+php artisan vendor:publish --provider="Hexters\Hexa\HexaServiceProvider"
+```
+
+## Meta Options
 
 ```php
-hexa()->getOptionDate('key-option') // output : 2030-04-12 10:10:10
+hexa()->setOption('key-option', 'value-option');
+hexa()->getOption('key-option', 'default');
+hexa()->dateOption('key-option');
+hexa()->getOptionKeys();
 ```
+
+## Traits Class
+
+| Name                 | Description                                 |
+| -------------------- | ------------------------------------------- |
+| `HexaRolePermission` | Used on the `Authenticatable` model         |
+| `HasHexaRole`        | Used on Resources, Pages, Widgets, Clusters |
+| `UuidGenerator`      | Used on models with a `uuid` field          |
+| `UlidGenerator`      | Used on models with a `ulid` field          |
 
 ## License
-This plugin is not open source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://ppmarket.org/browse/hexters-hexa) or request it from the owner of this plugin.
 
-## Issue
+We're working on the official license page — and it's coming soon. Something exciting is on the way, so stay tuned right here.
 
-If you encounter any issues with this plugin, you can submit them to the repository:
-[Filament Hexa Issue](https://github.com/hexters/hexa-docs/issues)
+## Bug Reports or Issues
 
-Thank you for using this plugin. We hope it speeds up your process in creating powerful applications.
+Please report issues via GitHub: [Filament Hexa Issue Tracker](https://github.com/hexters/hexa-docs/issues)
 
-Happy Coding 🧑‍💻 🧑‍💻 🧑‍💻
+Thank you for using Filament Hexa. We hope it helps accelerate your development process.
+
+**Happy Coding! 🧑‍💻**

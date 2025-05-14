@@ -1,5 +1,52 @@
 # CHANGELOG
 
+# V2.0.0
+
+## Major Updates
+- **Multi-Panel Support**  
+  Added support for multiple Filament panels using configurable `authGuard`.
+
+- **Non-Authenticated Context Access Checks**  
+  Now supports permission checking outside the authenticated context (e.g., in queues, jobs, commands).
+
+- **Simplified Permission Definitions**  
+  Permissions can now be defined directly inside `Pages`, `Resources`, `Widgets`, and `Clusters` via the `defineGates()` method.
+
+- **Navigation Customization**  
+  Added options to customize navigation name, group, and icon through the plugin configuration.
+
+- **Descriptive Permissions**  
+  Roles and permissions now support descriptions for better internal documentation and UI context.
+
+## New Features
+- New traits introduced:
+  - `HasHexaRole` (for Resources, Pages, Widgets, etc.)
+  - `UuidGenerator` & `UlidGenerator` (for models with UUID/ULID fields)
+- New API methods:
+  - `hexa()->setOption()`
+  - `hexa()->getOption()`
+  - `hexa()->dateOption()`
+  - `hexa()->getOptionKeys()`
+- Support for defining custom gates using `GateItem`, with nested permission groups.
+- Role sorting using a custom `$hexaSort` property.
+- Multi-tenancy support via `team_id` relation in the `HexaRole` model.
+
+## Changed
+- Installation is now handled manually via plugin registration (no longer uses `hexa:install` command).
+- Removed the need for `hexa:account` — users without a role are now automatically treated as Superusers.
+
+## Removed
+- Deprecated artisan commands:
+  - `php artisan hexa:install`
+  - `php artisan hexa:account`
+
+## Fixed
+- Improved gate resolution and permission logic for multi-panel and non-authenticated contexts.
+
+---
+
+> See earlier changelogs for version 1.x
+
 # V1.3.2
 
 - Add `select all / deselect all` in permission module.
