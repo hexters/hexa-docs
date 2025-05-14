@@ -2,6 +2,8 @@
 
 **Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament. Now in version 2, it supports multi-panel setups, is easier to use, and customizable.
 
+![Banner](https://github.com/hexters/assets/blob/main/hexa/v2/banner.png?raw=true)
+
 ## Versions
 |Version|Doc.|
 |-|-|
