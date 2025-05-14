@@ -28,7 +28,7 @@ composer config repositories.filamenthexa.ppmarket.org \
 Once the repository is added to your composer.json file, you can install Filament Hexa like any other composer package by using the composer require command:
 
 ```bash
-composer require hexters/hexa
+composer require hexters/hexa:1.3
 ```
 
 Then, proceed with the installation of the hexa plugin:
