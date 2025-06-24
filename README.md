@@ -1,4 +1,4 @@
-# Filament Hexa V2 (Coming Soon)
+# Filament Hexa V2
 
 **Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament. Now in version 2, it supports multi-panel setups, is easier to use, and customizable.
 
@@ -255,7 +255,10 @@ hexa()->getOptionKeys();
 
 ## License
 
-We're working on the official license page — and it's coming soon. Something exciting is on the way, so stay tuned right here.
+Filament Hexa requires a valid license.
+Support the developer and purchase a license here:
+👉 [https://ppmarket.org/browse/hexters-hexa](https://ppmarket.org/browse/hexters-hexa)
+
 
 ## Bug Reports or Issues
 
