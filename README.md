@@ -108,6 +108,12 @@ Configure guards in `config/auth.php`.
 Permissions can be declared in Pages, Resources, Widgets, and Clusters. Example:
 
 ```php
+use Hexters\Hexa\HasHexaRole;
+
+. . . 
+
+use HasHexaRole;
+
 public function defineGates(): array
 {
     return [
@@ -174,6 +180,13 @@ Gate::forUser(User::first())->allows('user.create');
 ### Adding Descriptions to Roles and Gates
 
 ```php
+use Hexters\Hexa\HasHexaRole;
+
+. . . 
+
+use HasHexaRole;
+
+
 public function roleDescription(): ?string
 {
     return __('Controls access to create, read, update, delete, and more.');
