@@ -186,6 +186,10 @@ use Hexters\Hexa\HasHexaRole;
 
 use HasHexaRole;
 
+public function roleName()
+{
+    return __('User Account');
+}
 
 public function roleDescription(): ?string
 {
