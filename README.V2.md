@@ -1,19 +1,14 @@
-# Filament Hexa v3 & Filament v4
+# Filament Hexa V2
 
-**Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament.
-Now in version 3, it supports Filament 4, multi-panel setups, is easier to use, and customizable.
-
-This version doesn’t bring major changes yet—it mainly focuses on supporting Filament v4 and includes minor bug fixes. We intentionally bumped the version to help identify version alignment between Hexa and Filament. In the future, if Filament increases its major version, Hexa will likely follow with a major version increase as well.
+**Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament. Now in version 2, it supports multi-panel setups, is easier to use, and customizable.
 
 ![Banner](https://github.com/hexters/assets/blob/main/hexa/v2/banner.png?raw=true)
 
 ## Versions
-
-| Hexa | Filament | Documentation                                                                     |
-| :-----: | :------: | --------------------------------------------------------------------------------- |
-|    V1   |    v3    | [Read Documentation](https://github.com/hexters/hexa-docs/blob/main/README.v1.md) |
-|    V2   |    v3    | [Read Documentation](https://github.com/hexters/hexa-docs/blob/main/README.V2.md) |
-|    V3   |    v4    | [Read Documentation](https://github.com/hexters/hexa-docs)                        |
+|Version|Doc.|
+|-|-|
+|V1|[Read Doc.](https://github.com/hexters/hexa-docs/blob/main/README.v1.md)|
+|V2|[Read Doc.](https://github.com/hexters/hexa-docs)|
 
 ## Index
 
@@ -38,13 +33,13 @@ This version doesn’t bring major changes yet—it mainly focuses on supporting
 
 ## Installation
 
-Install the package:
+Then install the package:
 
 ```bash
-composer require hexters/hexa
+composer require hexters/hexa:"^2.0"
 ```
 
-Then run the migration for the `roles` table:
+Then run the migration for roles:
 
 ```bash
 php artisan migrate
@@ -65,7 +60,7 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-Then register the access trait in your `User` model:
+Then register the access trait in the `User` model:
 
 ```php
 use Hexters\Hexa\HexaRolePermission;
@@ -79,14 +74,10 @@ class User extends Authenticatable
 
 ## Adding Role Select
 
-To assign a role to a user, add a select input in your `UserForm` class:
+To assign a role to a user, add a select input in your `UserResource` form:
 
 ```php
-use Filament\Forms\Components\Select;
-
-. . . .
-
-Select::make('roles')
+Forms\Components\Select::make('roles')
     ->label(__('Role Name'))
     ->relationship('roles', 'name')
     ->placeholder(__('Superuser')),
@@ -110,11 +101,11 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-Configure the guards in `config/auth.php`.
+Configure guards in `config/auth.php`.
 
 ## Defining Permissions
 
-Permissions can be defined in Pages, Resources, Widgets, and Clusters. Example:
+Permissions can be declared in Pages, Resources, Widgets, and Clusters. Example:
 
 ```php
 use Hexters\Hexa\HasHexaRole;
@@ -126,10 +117,10 @@ use HasHexaRole;
 public function defineGates(): array
 {
     return [
-        'user.index' => __('Allows viewing the user list'),
-        'user.create' => __('Allows creating a new user'),
-        'user.update' => __('Allows updating a user'),
-        'user.delete' => __('Allows deleting a user'),
+        'user.index' => __('Allows to view list of users'),
+        'user.create' => __('Allows to create new user'),
+        'user.update' => __('Allows to update user'),
+        'user.delete' => __('Allows to delete user'),
     ];
 }
 ```
@@ -147,7 +138,7 @@ public static function canAccess(): bool
 
 ### Check for User
 
-To check access outside of an authenticated context (e.g., in queues or commands):
+When checking access outside an authenticated context (e.g., in queues or commands), use:
 
 ```php
 return hexa()->user(User::first())->can('user.index');
@@ -164,7 +155,7 @@ Actions\CreateAction::make('create')
 
 ### Laravel Access
 
-You can also use Laravel's native authorization:
+Laravel's native authorization features:
 
 ```php
 Auth::user()->can('user.create');
@@ -216,8 +207,6 @@ public function defineGateDescriptions(): array
 
 ### Setting Role Display Order
 
-Menu order follows the navigation order. If you want to distinguish it:
-
 ```php
 public $hexaSort = 4;
 ```
@@ -230,7 +219,7 @@ You can define additional gates using `GateItem`:
 Hexa::make()
     ->gateItems([
         GateItem::make(__('Horizon'))
-            ->description(__('Allows user to manage the horizon page'))
+            ->description(__('Allows user to manage horizon page'))
             ->gateItems([
                 'horizon.page' => __('Horizon Page')
             ])
@@ -253,11 +242,11 @@ Hexa::make()
 
 ## Multi Tenancy
 
-Filament Hexa supports multi-tenancy. The `HexaRole` model includes a `team_id` field and a `team` relationship. You can integrate it with Filament’s multi-tenancy system.
+Filament Hexa supports multi-tenancy. The `HexaRole` model includes a `team_id` field and `team` relationship. You can integrate it with Filament's multi-tenancy setup.
 
 ## Vendor Publish
 
-To override the role model (e.g., to customize tenant relationships), publish the config:
+To override the role model (e.g., for customizing tenant relationships), publish the config:
 
 ```bash
 php artisan vendor:publish --provider="Hexters\Hexa\HexaServiceProvider"
@@ -287,12 +276,11 @@ Filament Hexa requires a valid license.
 Support the developer and purchase a license here:
 👉 [https://ppmarket.org/browse/hexters-hexa](https://ppmarket.org/browse/hexters-hexa)
 
+
 ## Bug Reports or Issues
 
-Please report any issues via GitHub:
-[Filament Hexa Issue Tracker](https://github.com/hexters/hexa-docs/issues)
+Please report issues via GitHub: [Filament Hexa Issue Tracker](https://github.com/hexters/hexa-docs/issues)
 
-Thank you for using Filament Hexa.
-We hope this helps speed up your development process.
+Thank you for using Filament Hexa. We hope it helps accelerate your development process.
 
 **Happy Coding! 🧑‍💻**
