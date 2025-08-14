@@ -243,11 +243,15 @@ Hexa::make()
 To customize the menu:
 
 ```php
+use Filament\Support\Icons\Heroicon;
+
+. . .
+
 Hexa::make()
     ->shouldRegisterNavigation(true)
     ->navigationName(__('Role & Access'))
     ->navigationGroup('Settings')
-    ->navigationIcon('heroicon-o-lock-open')
+    ->navigationIcon(Heroicon::OutlinedLockOpen)
     ->gateItems([...]);
 ```
 
