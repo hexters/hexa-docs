@@ -1,4 +1,4 @@
-# Filament Hexa v3 & Filament v4
+# Hexa v3 & Filament v4
 
 **Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament.
 Now in version 3, it supports Filament 4, multi-panel setups, is easier to use, and customizable.
