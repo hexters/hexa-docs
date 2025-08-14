@@ -4,12 +4,6 @@
 
 ![Banner](https://github.com/hexters/assets/blob/main/hexa/v2/banner.png?raw=true)
 
-## Versions
-|Version|Doc.|
-|-|-|
-|V1|[Read Doc.](https://github.com/hexters/hexa-docs/blob/main/README.v1.md)|
-|V2|[Read Doc.](https://github.com/hexters/hexa-docs)|
-
 ## Index
 
 * [Installation](#installation)
