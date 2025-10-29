@@ -288,8 +288,9 @@ hexa()->getOptionKeys();
 ## License
 
 Filament Hexa requires a valid license.
-Support the developer and purchase a license here:
-👉 [https://ppmarket.org/browse/hexters-hexa](https://ppmarket.org/browse/hexters-hexa)
+
+**Important Notice:**
+For new license requests or renewals, please contact the developer (Asep) directly via email.
 
 ## Bug Reports or Issues
 
