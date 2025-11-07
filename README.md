@@ -287,10 +287,15 @@ hexa()->getOptionKeys();
 
 ## License
 
-Filament Hexa requires a valid license.
+**Filament Hexa requires a valid license to operate.**
 
-**Important Notice:**
-For new license requests or renewals, please contact the developer (Asep) directly via email.
+### ☕ License Purchase
+
+You can purchase and activate your license directly through the link below:
+
+🔗 [https://buymeacoffee.com/hexters/e/476730](https://buymeacoffee.com/hexters/e/476730)
+
+All purchases and support are greatly appreciated and contribute to the ongoing development of Filament Hexa ❤️
 
 ## Bug Reports or Issues
 
