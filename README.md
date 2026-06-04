@@ -1,9 +1,9 @@
-# Hexa v3 & Filament v4
+# Hexa v3 & Filament v4 / v5
 
 **Filament Hexa** is an **easy-to-use role and permission management plugin** for Filament.
-Now in version 3, it supports Filament 4, multi-panel setups, is easier to use, and customizable.
+Now in version 3, it supports Filament 4 and 5, multi-panel setups, is easier to use, and is customizable.
 
-This version doesn’t bring major changes yet—it mainly focuses on supporting Filament v4 and includes minor bug fixes. We intentionally bumped the version to help identify version alignment between Hexa and Filament. In the future, if Filament increases its major version, Hexa will likely follow with a major version increase as well.
+This version doesn’t bring major changes yet—it mainly focuses on supporting Filament v4 and v5 and includes minor bug fixes. We intentionally bumped the version to help identify version alignment between Hexa and Filament. In the future, if Filament increases its major version, Hexa will likely follow with a major version increase as well.
 
 ![Banner](https://github.com/hexters/assets/blob/main/hexa/v2/banner.png?raw=true)
 
@@ -13,7 +13,7 @@ This version doesn’t bring major changes yet—it mainly focuses on supporting
 | :-----: | :------: | --------------------------------------------------------------------------------- |
 |    V1   |    v3    | [Read Documentation](https://github.com/hexters/hexa-docs/blob/main/README.v1.md) |
 |    V2   |    v3    | [Read Documentation](https://github.com/hexters/hexa-docs/blob/main/README.V2.md) |
-|    V3   |    v4    | [Read Documentation](https://github.com/hexters/hexa-docs)                        |
+|    V3   |  v4 / v5 | [Read Documentation](https://github.com/hexters/hexa-docs)                        |
 
 ## Index
 
@@ -235,7 +235,7 @@ Hexa::make()
                 'horizon.page' => __('Horizon Page')
             ])
             ->gateItemDescriptions([
-                'other.index' => __('Allow user to access horizon page')
+                'horizon.page' => __('Allow user to access horizon page')
             ]),
     ]);
 ```

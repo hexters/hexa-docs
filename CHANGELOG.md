@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# V3.0.3
+
+## Added
+- **Filament v5 support** — Hexa v3 now officially supports both Filament v4 and v5.
+- Automated test suite (Pest + Orchestra Testbench) covering the permission engine, gate registration, multi-panel guard scoping, and the meta option store.
+
+## Fixed
+- **Superuser check via `hexa()->user($user)`** — a user without any role is now correctly treated as a Superuser in non-authenticated contexts (queues, jobs, commands). Previously an empty role collection was mistaken for an assigned role set, wrongly denying access.
+- **Meta options** — `hexa()->setOption($key, null)` now removes the option as expected, and `hexa()->dateOption($key)` resolves correctly. Both now use the same `hexa-` key prefix as `getOption()`/`setOption()`.
+
 # V2.0.0
 
 ## Major Updates
