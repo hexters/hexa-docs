@@ -268,7 +268,7 @@ hexa()->getOptionKeys();
 
 Filament Hexa requires a valid license.
 Support the developer and purchase a license here:
-👉 [https://ppmarket.org/browse/hexters-hexa](https://ppmarket.org/browse/hexters-hexa)
+👉 [https://buymeacoffee.com/hexters/e/476730](https://buymeacoffee.com/hexters/e/476730)
 
 
 ## Bug Reports or Issues

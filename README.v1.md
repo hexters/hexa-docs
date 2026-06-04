@@ -231,7 +231,7 @@ hexa()->getOptionDate('key-option') // output : 2030-04-12 10:10:10
 ```
 
 ## License
-This plugin is not open source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://ppmarket.org/browse/hexters-hexa) or request it from the owner of this plugin.
+This plugin is not open source. You need a license to use this plugin. You can purchase it at [Filament Hexa License](https://buymeacoffee.com/hexters/e/476730) or request it from the owner of this plugin.
 
 ## Issue
 
